@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "christmas.client.mixin.baritone",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "christmas.client.MixinPlugin",
+  "client": [
+    "ComeCommandMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

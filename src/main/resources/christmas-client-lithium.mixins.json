@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "package": "christmas.client.mixin.lithium",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "christmas.client.MixinPlugin",
+  "client": [
+    "ChunkAwareBlockCollisionSweeperMixin",
+    "LithiumEntityCollisionsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

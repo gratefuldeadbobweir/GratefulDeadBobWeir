@@ -20,11 +20,11 @@ base {
 
 repositories {
     maven {
-        name = "meteor-maven"
+        name = "christmas-maven"
         url = uri("https://maven.meteordev.org/releases")
     }
     maven {
-        name = "meteor-maven-snapshots"
+        name = "christmas-maven-snapshots"
         url = uri("https://maven.meteordev.org/snapshots")
     }
     maven {
@@ -91,10 +91,7 @@ dependencies {
     // Libraries (JAR-in-JAR)
     jij(libs.orbit)
     jij(libs.starscript)
-    jij(libs.discord.ipc)
     jij(libs.reflections)
-    jij(libs.netty.handler.proxy) { isTransitive = false }
-    jij(libs.netty.codec.socks) { isTransitive = false }
     jij(libs.waybackauthlib)
     jij(libs.minecraft.auth) {
         exclude("com.google.code.gson")
@@ -140,7 +137,7 @@ listOf("api", "implementation", "include").forEach { configName ->
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/meteor-client.classtweaker")
+    accessWidenerPath = file("src/main/resources/christmas-client.classtweaker")
 }
 
 fun toMinecraftCompat(version: String): String {
@@ -207,7 +204,7 @@ tasks {
         from(launcher.output)
 
         manifest {
-            attributes["Main-Class"] = "meteordevelopment.meteorclient.Main"
+            attributes["Main-Class"] = "christmas.client.Main"
         }
     }
 
@@ -224,7 +221,7 @@ tasks {
         if (runErrorProne) {
             options.errorprone {
                 check("NullAway", net.ltgt.gradle.errorprone.CheckSeverity.ERROR)
-                option("NullAway:AnnotatedPackages", "meteordevelopment.meteorclient")
+                option("NullAway:AnnotatedPackages", "christmas.client")
                 option("NullAway:JSpecifyMode", "true")
                 // Event handlers are discovered reflectively by Orbit.
                 option("UnusedMethod:ExcludedAnnotations", "meteordevelopment.orbit.EventHandler")
@@ -251,24 +248,40 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             from(components["java"])
-            artifactId = "meteor-client"
+            artifactId = "christmas-client"
 
             version = "${libs.versions.minecraft.get()}-SNAPSHOT"
         }
     }
 
-    repositories {
-        maven("https://maven.meteordev.org/snapshots") {
-            name = "meteor-maven"
-
-            credentials {
-                username = System.getenv("MAVEN_METEOR_ALIAS")
-                password = System.getenv("MAVEN_METEOR_TOKEN")
-            }
-
-            authentication {
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
 }
+
+// The storage grouping suite is dependency-free and runs as part of the normal check.
+val verification = sourceSets.create("verification") {
+    java.srcDir("src/verification/java")
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
+}
+val storageClusterTest = tasks.register<JavaExec>("storageClusterTest") {
+    dependsOn(verification.classesTaskName)
+    classpath = verification.runtimeClasspath
+    mainClass.set("christmas.client.systems.modules.world.storage.StorageClustererTest")
+}
+
+tasks.check { dependsOn(storageClusterTest) }
+
+val labelPlacementTest = tasks.register<JavaExec>("labelPlacementTest") {
+    dependsOn(verification.classesTaskName)
+    classpath = verification.runtimeClasspath
+    mainClass.set("christmas.client.utils.render.LabelPlacementTest")
+}
+
+tasks.check { dependsOn(labelPlacementTest) }
+
+val sprintPolicyTest = tasks.register<JavaExec>("sprintPolicyTest") {
+    dependsOn(verification.classesTaskName)
+    classpath = verification.runtimeClasspath
+    mainClass.set("christmas.client.systems.modules.movement.SprintPolicyTest")
+}
+
+tasks.check { dependsOn(sprintPolicyTest) }

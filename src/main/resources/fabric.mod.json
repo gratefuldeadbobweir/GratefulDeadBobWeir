@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "name": "Meteor Client",
-  "id": "meteor-client",
+  "name": "Christmas",
+  "id": "christmas-client",
   "version": "${version}",
   "description": "Based utility mod.",
   "authors": [
@@ -10,42 +10,35 @@
     "seasnail"
   ],
   "contact": {
-    "homepage": "https://meteorclient.com",
-    "issues": "https://github.com/MeteorDevelopment/meteor-client/issues",
-    "sources": "https://github.com/MeteorDevelopment/meteor-client",
-    "discord": "https://meteorclient.com/discord"
+    "sources": "https://github.com/gratefuldeadbobweir/GratefulDeadBobWeir",
+    "issues": "https://github.com/gratefuldeadbobweir/GratefulDeadBobWeir/issues"
   },
   "license": "GPL-3.0",
-  "icon": "assets/meteor-client/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "meteordevelopment.meteorclient.MeteorClient"
+      "christmas.client.ChristmasClient"
     ],
     "modmenu": [
-      "meteordevelopment.meteorclient.modintegration.ModMenuIntegration"
+      "christmas.client.modintegration.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "meteor-client.mixins.json",
-    "meteor-client-baritone.mixins.json",
-    "meteor-client-indigo.mixins.json",
-    "meteor-client-sodium.mixins.json",
-    "meteor-client-lithium.mixins.json",
-    "meteor-client-metallum.mixins.json"
+    "christmas-client.mixins.json",
+    "christmas-client-baritone.mixins.json",
+    "christmas-client-indigo.mixins.json",
+    "christmas-client-iris.mixins.json",
+    "christmas-client-sodium.mixins.json",
+    "christmas-client-lithium.mixins.json",
+    "christmas-client-metallum.mixins.json"
   ],
-  "accessWidener": "meteor-client.classtweaker",
+  "accessWidener": "christmas-client.classtweaker",
   "custom": {
-    "meteor-client:build_number": "${build_number}",
-    "meteor-client:color": "145,61,226",
-    "meteor-client:commit": "${commit}",
-    "modmenu": {
-      "links": {
-        "modmenu.discord": "https://meteorclient.com/discord"
-      }
-    },
+    "christmas-client:build_number": "${build_number}",
+    "christmas-client:color": "196,43,60",
+    "christmas-client:commit": "${commit}",
     "badoptimizations:cache_hooks": {
-      "lightmap": "meteordevelopment.meteorclient.modintegration.BadOptimizationsHook"
+      "lightmap": "christmas.client.modintegration.BadOptimizationsHook"
     }
   },
   "depends": {
