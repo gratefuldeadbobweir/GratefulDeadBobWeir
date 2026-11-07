@@ -1,0 +1,12 @@
+/*
+ * This file is part of the Meteor Client distribution (https://github.com/MeteorDevelopment/meteor-client).
+ * Copyright (c) Meteor Development.
+ */
+
+package christmas.client.mixininterface;
+
+public interface IGuiMessageVisible extends IGuiMessage {
+    boolean christmas$isStartOfEntry();
+
+    void christmas$setStartOfEntry(boolean start);
+}

@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "package": "christmas.client.mixin.iris",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "christmas.client.MixinPlugin",
+  "client": [
+    "IrisCommonUniformsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

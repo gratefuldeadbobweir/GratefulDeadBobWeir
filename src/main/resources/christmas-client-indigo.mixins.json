@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "package": "christmas.client.mixin.indigo",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "christmas.client.MixinPlugin",
+  "client": [
+    "AltModelBlockRendererImplMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

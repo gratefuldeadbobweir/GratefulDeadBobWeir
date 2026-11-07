@@ -30,7 +30,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           gemini-model: "gemini-3-flash-preview"
-          project-context: "Meteor Client is a Minecraft utility client built as a Fabric mod, intended for use
+          project-context: "Christmas Client is a Minecraft utility client built as a Fabric mod, intended for use
           on anarchy servers where hack clients are permitted. It is written in Java and is currently targeting
           Minecraft version 26.1.2."
 
